@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { ProductModel } from './utils/product.model';
 import { fetchProductsApi } from './services/product-api.service';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from './app/store';
+import { AppDispatch, RootState } from './store/store';
 import { selectProducts } from './store/product/product.selectors';
 
 const useProducts = () => {

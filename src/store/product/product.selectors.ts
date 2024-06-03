@@ -1,5 +1,5 @@
-import { RootState } from '../../app/store';
 import { ProductStateModel } from '../../models/state/product-state.model';
+import { RootState } from '../store';
 
 const selectProductState = (state: RootState): ProductStateModel => state.product;
 

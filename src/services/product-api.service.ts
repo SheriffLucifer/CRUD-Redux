@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ProductModel } from '../utils/product.model';
 import { PRODUCTS_URL } from '../constants/api.constants';
 import { setProducts } from '../store/product/product.slice';
-import { AppDispatch } from '../app/store';
+import { AppDispatch } from '../store/store';
 
 export const fetchProductsApi = () => async (dispatch: AppDispatch) => {
     try {
