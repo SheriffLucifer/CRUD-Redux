@@ -30,6 +30,7 @@ export const Header = styled.div`
 
 export const Title = styled.h2`
     margin: 0;
+    color: black;
 `;
 
 export const CloseButton = styled.button`
