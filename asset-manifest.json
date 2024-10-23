@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/CRUD-Redux/static/js/main.9eb8ebe5.js",
+    "static/media/cross.svg": "/CRUD-Redux/static/media/cross.d3db127fc9a4f510dfdadc49f9a1e0f7.svg",
+    "index.html": "/CRUD-Redux/index.html",
+    "main.9eb8ebe5.js.map": "/CRUD-Redux/static/js/main.9eb8ebe5.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.9eb8ebe5.js"
+  ]
+}
