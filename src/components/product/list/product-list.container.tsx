@@ -3,13 +3,13 @@ import useProducts from '../../../products.hook';
 import ProductCreationContainer from './ProductCreationContainer';
 
 const ProductListContainer: React.FC = () => {
-    const { products, loading, error } = useProducts();
+    const { loading, error } = useProducts();
 
     return (
         <div>
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
-            <ProductList products={products} />
+            <ProductList />
             <ProductCreationContainer />
         </div>
     );

@@ -15,8 +15,6 @@ export const Button = styled.button`
     justify-content: center;
     font-size: 24px;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s;
 
     &:hover {
         background-color: #0056b3;
