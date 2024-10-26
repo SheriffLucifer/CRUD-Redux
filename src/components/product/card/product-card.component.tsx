@@ -1,15 +1,16 @@
-import React, { memo, FC, useState } from 'react';
+import { memo, FC, useState } from 'react';
 import { ProductModel } from '../../../utils/product.model';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
 import Description from '../../Description';
 import ImageModal from '../../ImageModal';
 import DeleteButton from '../../DeleteButton';
 
 type ProductCardProps = ProductModel & {
     onDelete: () => void;
+    onEdit: () => void;
 };
 
-const ProductCard: FC<ProductCardProps> = ({ title, price, description, image, onDelete }) => {
+const ProductCard: FC<ProductCardProps> = ({ title, price, description, image, onDelete, onEdit }) => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -19,6 +20,7 @@ const ProductCard: FC<ProductCardProps> = ({ title, price, description, image, o
     const handleClose = () => {
         setOpen(false);
     };
+
     return (
         <>
             <Card
@@ -48,6 +50,14 @@ const ProductCard: FC<ProductCardProps> = ({ title, price, description, image, o
                     {price}$
                 </Typography>
                 <DeleteButton onClick={onDelete} />
+                <IconButton
+                    aria-label='edit'
+                    color='warning'
+                    onClick={onEdit}
+                    sx={{ position: 'absolute', bottom: 15, right: 15 }}
+                >
+                    Edit
+                </IconButton>
             </Card>
 
             <ImageModal open={open} image={image} title={title} onClose={handleClose}></ImageModal>
