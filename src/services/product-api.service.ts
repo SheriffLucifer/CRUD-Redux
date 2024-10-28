@@ -12,8 +12,3 @@ export const fetchProductsApi = () => async (dispatch: AppDispatch) => {
         console.error('Error fetching products:', error);
     }
 };
-
-export const createProductApi = async (product: Partial<ProductModel>): Promise<ProductModel> => {
-    const response = await axios.post<ProductModel>(PRODUCTS_URL, product);
-    return response.data;
-};

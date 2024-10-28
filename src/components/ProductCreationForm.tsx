@@ -8,7 +8,7 @@ import UploadButton from './UploadButton';
 type ProductCreationFormProps = {
     initialData?: Partial<ProductModel>;
     isEditing?: boolean;
-    onSubmit: (product: Partial<ProductModel>) => Promise<void>;
+    onSubmit: (product: ProductModel) => void;
 };
 
 const ProductCreationForm: React.FC<ProductCreationFormProps> = ({ initialData, isEditing, onSubmit }) => {
@@ -30,7 +30,7 @@ const ProductCreationForm: React.FC<ProductCreationFormProps> = ({ initialData, 
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
 
@@ -40,7 +40,7 @@ const ProductCreationForm: React.FC<ProductCreationFormProps> = ({ initialData, 
         }
 
         try {
-            await onSubmit({ title, description, image: image || '', price: Number(price) });
+            onSubmit({ title, description, image: image || '', price: Number(price) });
             setTitle('');
             setDescription('');
             setImage(null);
@@ -55,7 +55,7 @@ const ProductCreationForm: React.FC<ProductCreationFormProps> = ({ initialData, 
         }
     };
 
-    return (
+    return isEditing ? (
         <Form onSubmit={handleSubmit}>
             <Input value={title} onChange={e => setTitle(e.target.value)} placeholder='Title' />
             <Input value={description} onChange={e => setDescription(e.target.value)} placeholder='Description' />
@@ -67,7 +67,21 @@ const ProductCreationForm: React.FC<ProductCreationFormProps> = ({ initialData, 
                 placeholder='Price'
             />
             {error && <ErrorMessage>{error}</ErrorMessage>}
-            <Button type='submit'>{isEditing ? 'Save editing' : 'Create'}</Button>
+            <Button type='submit'>Save editing</Button>
+        </Form>
+    ) : (
+        <Form onSubmit={handleSubmit}>
+            <Input value={title} onChange={e => setTitle(e.target.value)} placeholder='Title' />
+            <Input value={description} onChange={e => setDescription(e.target.value)} placeholder='Description' />
+            <UploadButton onFileUpload={handleUpload} />
+            <Input
+                type='number'
+                value={price}
+                onChange={e => setPrice(e.target.value ? Number(e.target.value) : '')}
+                placeholder='Price'
+            />
+            {error && <ErrorMessage>{error}</ErrorMessage>}
+            <Button type='submit'>Create</Button>
         </Form>
     );
 };

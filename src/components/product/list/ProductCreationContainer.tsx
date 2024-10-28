@@ -3,7 +3,6 @@ import CreateButton from '../../CreateButton';
 import Modal from '../../Modal';
 import ProductCreationForm from '../../ProductCreationForm';
 import { useDispatch } from 'react-redux';
-import { createProductApi } from '../../../services/product-api.service';
 import { addProductAction } from '../../../store/product/product.slice';
 import { ProductModel } from '../../../utils/product.model';
 
@@ -14,8 +13,13 @@ const ProductCreationContainer: React.FC = () => {
     const handleModalOpen = () => setModalVisible(true);
     const handleModalClose = () => setModalVisible(false);
 
-    const handleSubmit = async (product: Partial<ProductModel>) => {
-        const newProduct = await createProductApi(product);
+    const randomId = () => {
+        const number = Math.floor(Math.random() * 10000);
+        return number;
+    };
+
+    const handleSubmit = (product: ProductModel) => {
+        const newProduct = { ...product, id: randomId() };
         dispatch(addProductAction(newProduct));
         handleModalClose();
     };
