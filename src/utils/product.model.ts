@@ -5,6 +5,7 @@ export interface ProductModel {
     category?: string;
     description: string;
     image: string;
+    isEditable?: boolean;
     rating?: {
         rate: number;
         count: number;

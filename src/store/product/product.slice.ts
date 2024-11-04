@@ -14,7 +14,8 @@ const productSlice = createSlice({
             state.products = action.payload;
         },
         addProductAction: (state, action: PayloadAction<ProductModel>) => {
-            state.products = [action.payload, ...state.products];
+            const newProduct = { ...action.payload, isEditable: true };
+            state.products = [newProduct, ...state.products];
         },
         removeProductAction: (state, action: PayloadAction<Number>) => {
             state.products = state.products.filter(product => product.id !== action.payload);

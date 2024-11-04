@@ -10,7 +10,7 @@ type ProductCardProps = ProductModel & {
     onEdit: () => void;
 };
 
-const ProductCard: FC<ProductCardProps> = ({ title, price, description, image, onDelete, onEdit }) => {
+const ProductCard: FC<ProductCardProps> = ({ title, price, description, image, isEditable, onDelete, onEdit }) => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -50,14 +50,16 @@ const ProductCard: FC<ProductCardProps> = ({ title, price, description, image, o
                     {price}$
                 </Typography>
                 <DeleteButton onClick={onDelete} />
-                <IconButton
-                    aria-label='edit'
-                    color='warning'
-                    onClick={onEdit}
-                    sx={{ position: 'absolute', bottom: 15, right: 15 }}
-                >
-                    Edit
-                </IconButton>
+                {isEditable && (
+                    <IconButton
+                        aria-label='edit'
+                        color='warning'
+                        onClick={onEdit}
+                        sx={{ position: 'absolute', bottom: 15, right: 15 }}
+                    >
+                        Edit
+                    </IconButton>
+                )}
             </Card>
 
             <ImageModal open={open} image={image} title={title} onClose={handleClose}></ImageModal>
