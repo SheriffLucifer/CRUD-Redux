@@ -1,6 +1,6 @@
 import { memo, FC, useState } from 'react';
 import { ProductModel } from '../../../utils/product.model';
-import { Card, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
+import { Button, Card, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
 import Description from '../../Description';
 import ImageModal from '../../ImageModal';
 import DeleteButton from '../../DeleteButton';
@@ -8,9 +8,19 @@ import DeleteButton from '../../DeleteButton';
 type ProductCardProps = ProductModel & {
     onDelete: () => void;
     onEdit: () => void;
+    onAddToCart: () => void;
 };
 
-const ProductCard: FC<ProductCardProps> = ({ title, price, description, image, isEditable, onDelete, onEdit }) => {
+const ProductCard: FC<ProductCardProps> = ({
+    title,
+    price,
+    description,
+    image,
+    isEditable,
+    onDelete,
+    onEdit,
+    onAddToCart,
+}) => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -45,6 +55,9 @@ const ProductCard: FC<ProductCardProps> = ({ title, price, description, image, i
                         {title}
                     </Typography>
                     <Description text={description}></Description>
+                    <Button style={{ marginTop: 15 }} onClick={onAddToCart} variant='contained' color='primary'>
+                        Add to cart
+                    </Button>
                 </CardContent>
                 <Typography component='span' color='yellowgreen'>
                     {price}$
