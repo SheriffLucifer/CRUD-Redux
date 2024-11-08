@@ -1,47 +1,38 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import CartItem from './cart-item.component';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { ProductModel } from '../../utils/product.model';
 import { clearCart } from '../../store/cart/cart.slice';
+import { useNavigate } from 'react-router-dom';
 
-type CartProps = {
-    products: ProductModel[];
-    onClose: () => void;
-};
-
-const Cart: React.FC<CartProps> = ({ products, onClose }) => {
-    const dispatch = useDispatch();
+const Cart: React.FC = () => {
     const cartItems = useSelector((state: RootState) => state.cart.items);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
 
-    return ReactDOM.createPortal(
-        <div
-            style={{
-                position: 'fixed',
-                top: 0,
-                right: 0,
-                width: 300,
-                height: '100%',
-                background: 'greenyellow',
-                padding: 20,
-                boxShadow: '0 0 10px rgba(0,0,0,0.3)',
-                overflowY: 'auto',
-                scrollbarWidth: 'none',
-            }}
-        >
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    const handleClearCart = () => {
+        dispatch(clearCart());
+    };
+
+    const handleClose = () => {
+        navigate('/');
+    };
+
+    return (
+        <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
                 <h2 style={{ margin: '0 0 20px' }}>Cart</h2>
                 <button
-                    onClick={onClose}
+                    onClick={handleClose}
                     style={{
-                        marginBottom: 20,
+                        marginBottom: 40,
                         border: 'none',
-                        background: 'greenyellow',
-                        fontSize: 20,
+                        background: 'violet',
+                        fontSize: 10,
                         cursor: 'pointer',
+                        borderRadius: '50%',
                     }}
                 >
                     Close
@@ -53,16 +44,15 @@ const Cart: React.FC<CartProps> = ({ products, onClose }) => {
                 ))}
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 20 }}>
-                <h3 style={{ margin: '20px 0 0' }}>Total Amount: {totalAmount}$</h3>
+                <h3 style={{ margin: '20px 0 0', fontSize: 25 }}>Total Amount: {totalAmount}$</h3>
                 <button
-                    style={{ border: 'none', background: 'greenyellow', cursor: 'pointer', marginTop: 20 }}
-                    onClick={() => dispatch(clearCart())}
+                    style={{ border: 'none', background: 'aqua', cursor: 'pointer', margin: '20px 0 0 20px' }}
+                    onClick={handleClearCart}
                 >
                     Clear
                 </button>
             </div>
-        </div>,
-        document.body
+        </div>
     );
 };
 

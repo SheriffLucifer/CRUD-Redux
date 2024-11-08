@@ -7,14 +7,17 @@ import { selectProducts } from '../../../store/product/product.selectors';
 import { removeProductAction, updateProductAction } from '../../../store/product/product.slice';
 import ProductEditForm from '../../ProductEditForm';
 import { addToCart } from '../../../store/cart/cart.slice';
-import Cart from '../../cart/cart.component';
+import { useNavigate } from 'react-router-dom';
+import AddToCartNotification from '../../AddToCartNotification';
 
 const ProductList: FC = () => {
     const dispatch = useDispatch();
     const products = useSelector<RootState, ProductModel[]>(selectProducts);
     const [editingProduct, setEditingProduct] = useState<ProductModel | null>(null);
     const cartProducts = useSelector((state: RootState) => state.cart.items);
-    const [isCartOpen, setIsCartOpen] = useState(false);
+    const [notification, setNotification] = useState<string | null>(null);
+
+    const navigate = useNavigate();
 
     const handleDelete = (id: number) => {
         dispatch(removeProductAction(id));
@@ -22,10 +25,11 @@ const ProductList: FC = () => {
 
     const handleAddToCart = (product: ProductModel) => {
         dispatch(addToCart(product));
+        setNotification(`${product.title} добавлен в корзину`);
     };
 
-    const toggleCart = () => {
-        setIsCartOpen(!isCartOpen);
+    const closeNotification = () => {
+        setNotification(null);
     };
 
     const handleEdit = (product: ProductModel) => {
@@ -38,7 +42,7 @@ const ProductList: FC = () => {
 
     return (
         <div>
-            <button onClick={toggleCart}>Перейти в корзину ({cartProducts.length})</button>
+            <button onClick={() => navigate('/cart')}>Перейти в корзину ({cartProducts.length})</button>
             {products.map(product => (
                 <ProductCard
                     key={product.id}
@@ -54,7 +58,7 @@ const ProductList: FC = () => {
                 onClose={() => setEditingProduct(null)}
                 onSave={handleSave}
             />
-            {isCartOpen && <Cart products={cartProducts} onClose={toggleCart} />}
+            {notification && <AddToCartNotification message={notification} onClose={closeNotification} />}
         </div>
     );
 };
