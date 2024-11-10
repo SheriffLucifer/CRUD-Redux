@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.js": "/CRUD-Redux/static/js/main.361b1b54.js",
+    "main.js": "/CRUD-Redux/static/js/main.1f7c9765.js",
+    "static/media/shopping_cart_brxhk98njtrd.svg": "/CRUD-Redux/static/media/shopping_cart_brxhk98njtrd.312adfc1fefb734d5606e3199e28af87.svg",
     "static/media/delete-svgrepo-com.svg": "/CRUD-Redux/static/media/delete-svgrepo-com.47e38cd81942233a7927c073f084e293.svg",
     "static/media/cross.svg": "/CRUD-Redux/static/media/cross.d3db127fc9a4f510dfdadc49f9a1e0f7.svg",
     "index.html": "/CRUD-Redux/index.html",
-    "main.361b1b54.js.map": "/CRUD-Redux/static/js/main.361b1b54.js.map"
+    "main.1f7c9765.js.map": "/CRUD-Redux/static/js/main.1f7c9765.js.map"
   },
   "entrypoints": [
-    "static/js/main.361b1b54.js"
+    "static/js/main.1f7c9765.js"
   ]
 }
