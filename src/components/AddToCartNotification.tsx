@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Notification } from '../assets/styles/notification.style';
+import { Notification } from '../assets/styles/notification.styles';
 
 interface AddToCartNotificationProps {
     message: string;

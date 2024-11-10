@@ -1,14 +1,13 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import CartItem from './cart-item.component';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { clearCart } from '../../store/cart/cart.slice';
-import { useNavigate } from 'react-router-dom';
 
-const Cart: React.FC = () => {
+const Cart: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const cartItems = useSelector((state: RootState) => state.cart.items);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
 
@@ -16,18 +15,26 @@ const Cart: React.FC = () => {
         dispatch(clearCart());
     };
 
-    const handleClose = () => {
-        navigate('/');
-    };
-
-    return (
-        <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
+    return ReactDOM.createPortal(
+        <div
+            style={{
+                position: 'fixed',
+                top: 70,
+                right: 10,
+                background: 'white',
+                padding: 20,
+                zIndex: 1001,
+                maxWidth: 240,
+                maxHeight: '80%',
+                overflowY: 'auto',
+            }}
+        >
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <h2 style={{ margin: '0 0 20px' }}>Cart</h2>
                 <button
-                    onClick={handleClose}
+                    onClick={onClose}
                     style={{
-                        marginBottom: 40,
+                        marginBottom: 20,
                         border: 'none',
                         background: 'violet',
                         fontSize: 10,
@@ -44,7 +51,7 @@ const Cart: React.FC = () => {
                 ))}
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 20 }}>
-                <h3 style={{ margin: '20px 0 0', fontSize: 25 }}>Total Amount: {totalAmount}$</h3>
+                <h3 style={{ margin: '20px 0 0', fontSize: 25 }}>Total: {totalAmount}$</h3>
                 <button
                     style={{ border: 'none', background: 'aqua', cursor: 'pointer', margin: '20px 0 0 20px' }}
                     onClick={handleClearCart}
@@ -52,7 +59,8 @@ const Cart: React.FC = () => {
                     Clear
                 </button>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };
 

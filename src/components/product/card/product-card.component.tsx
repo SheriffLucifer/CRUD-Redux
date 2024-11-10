@@ -36,32 +36,32 @@ const ProductCard: FC<ProductCardProps> = ({
             <Card
                 sx={{
                     position: 'relative',
-                    width: 600,
+                    maxWidth: 250,
                     display: 'flex',
                     alignItems: 'center',
                     margin: '15px 0',
-                    padding: '15px 15px',
+                    padding: '15px',
                 }}
             >
                 <CardMedia
                     component='img'
-                    sx={{ width: 150, cursor: 'pointer' }}
+                    sx={{ maxWidth: 50, cursor: 'pointer' }}
                     image={image}
                     title={title}
                     onClick={handleOpen}
                 />
-                <CardContent sx={{ width: 300, flex: '1 0 auto' }}>
-                    <Typography component='div' variant='h5' style={{ marginBottom: 25 }}>
+                <CardContent sx={{ maxWidth: 150 }}>
+                    <Typography component='div' variant='h6' style={{ marginBottom: 15, lineHeight: 1.2 }}>
                         {title}
                     </Typography>
                     <Description text={description}></Description>
+                    <Typography component='span' color='yellowgreen'>
+                        {price}$
+                    </Typography>
                     <Button style={{ marginTop: 15 }} onClick={onAddToCart} variant='contained' color='primary'>
                         Add to cart
                     </Button>
                 </CardContent>
-                <Typography component='span' color='yellowgreen'>
-                    {price}$
-                </Typography>
                 <DeleteButton onClick={onDelete} />
                 {isEditable && (
                     <IconButton

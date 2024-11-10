@@ -5,8 +5,8 @@ export const RemoveButton = styled.img.attrs({
     src: removeIcon,
 })`
     position: absolute;
-    right: 15px;
-    top: 15px;
+    right: 5px;
+    top: 5px;
     width: 30px;
     height: 30px;
     cursor: pointer;

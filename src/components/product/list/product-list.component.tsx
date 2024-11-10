@@ -7,17 +7,20 @@ import { selectProducts } from '../../../store/product/product.selectors';
 import { removeProductAction, updateProductAction } from '../../../store/product/product.slice';
 import ProductEditForm from '../../ProductEditForm';
 import { addToCart } from '../../../store/cart/cart.slice';
-import { useNavigate } from 'react-router-dom';
 import AddToCartNotification from '../../AddToCartNotification';
+import CartIcon from '../../cart/cart-icon.component';
+import Cart from '../../cart/cart.component';
 
 const ProductList: FC = () => {
     const dispatch = useDispatch();
     const products = useSelector<RootState, ProductModel[]>(selectProducts);
     const [editingProduct, setEditingProduct] = useState<ProductModel | null>(null);
-    const cartProducts = useSelector((state: RootState) => state.cart.items);
     const [notification, setNotification] = useState<string | null>(null);
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
-    const navigate = useNavigate();
+    const toggleCart = () => {
+        setIsCartOpen(!isCartOpen);
+    };
 
     const handleDelete = (id: number) => {
         dispatch(removeProductAction(id));
@@ -42,7 +45,7 @@ const ProductList: FC = () => {
 
     return (
         <div>
-            <button onClick={() => navigate('/cart')}>Перейти в корзину ({cartProducts.length})</button>
+            <CartIcon onClick={toggleCart} />
             {products.map(product => (
                 <ProductCard
                     key={product.id}
@@ -52,6 +55,20 @@ const ProductList: FC = () => {
                     onAddToCart={() => handleAddToCart(product)}
                 />
             ))}
+            {isCartOpen && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100vw',
+                        height: '100vh',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        zIndex: 1000,
+                    }}
+                ></div>
+            )}
+            {isCartOpen && <Cart onClose={toggleCart} />}
             <ProductEditForm
                 product={editingProduct || null}
                 open={!!editingProduct}

@@ -28,7 +28,7 @@ const CartItem: FC<CartItemProps> = ({ item }) => {
             }}
             key={item.id}
         >
-            <img style={{ width: 50, height: 50, marginRight: 10 }} src={item.image} alt={item.title} />
+            <img style={{ width: 40, marginRight: 10 }} src={item.image} alt={item.title} />
             <div style={{ flex: 1, fontSize: 10 }}>
                 <h3>{item.title}</h3>
                 <p>
